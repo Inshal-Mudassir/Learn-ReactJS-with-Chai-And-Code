@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 function App() {
   const [length, setLength] = useState(8);
@@ -12,12 +12,14 @@ function App() {
     if (characterAllowed) str += "!@#$%^&*()_+-={}[]|,.?/";
 
     for (let i = 1; i <= length; i++) {
-      let char = Math.floor(Math.randomm() * str.length + 1);
-      pass = str.charAt(char);
+      let char = Math.floor(Math.random() * str.length + 1);
+      pass += str.charAt(char);
     }
-
     setPassword(pass);
   }, [length, numberAllowed, characterAllowed, setPassword]);
+    useEffect(() => {
+      passwordGenerator();
+    }, [length, numberAllowed, characterAllowed, passwordGenerator])
   return (
     <div className="w-full max-w-md mx-auto shadow-md rounded-lg px-4 my-8 text-orange-500 bg-gray-700">
       <h1 className="text-white text-center my-3">Password Generator</h1>
@@ -25,7 +27,7 @@ function App() {
         <input
           type="text"
           value={password}
-          className="outline-none w-full py-1 px-3"
+          className="outline-none w-full py-1 px-3 bg-white"
           placeholder="password"
           readOnly
         />
@@ -38,7 +40,7 @@ function App() {
           <input
             type="range"
             min={6}
-            max={100}
+            max={20}
             value={length}
             className="cursor-pointer"
             onChange={(e) => {
