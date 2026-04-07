@@ -1,4 +1,4 @@
-export default function Card4({ratting, subject}) {
+export default function Card4({ratting="3.3", subject="Science"}) {
   // console.log("props", props);
   // console.log(ratting);
   return (
